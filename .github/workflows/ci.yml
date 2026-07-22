@@ -60,11 +60,6 @@ jobs:
         with:
           generateSarif: true
 
-      - name: Upload Semgrep SARIF
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: semgrep.sarif
 
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
