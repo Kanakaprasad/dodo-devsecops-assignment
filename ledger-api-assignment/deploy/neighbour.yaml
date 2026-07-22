@@ -22,6 +22,10 @@ spec:
         app: reporting
     spec:
       serviceAccountName: reporting
+
+      securityContext:
+        runAsNonRoot: true
+
       containers:
         - name: client
           image: curlimages/curl:8.8.0
