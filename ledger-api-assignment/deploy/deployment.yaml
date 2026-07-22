@@ -19,10 +19,22 @@ spec:
         app: ledger-api
 
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+
       containers:
         - name: ledger-api
           image: ledger-api:starter
           imagePullPolicy: IfNotPresent
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
 
           env:
             - name: STRIPE_API_KEY
