@@ -11,22 +11,37 @@ metadata:
   namespace: payments
   labels:
     app: reporting
+
 spec:
   replicas: 1
+
   selector:
     matchLabels:
       app: reporting
+
   template:
     metadata:
       labels:
         app: reporting
+
     spec:
       serviceAccountName: reporting
 
       securityContext:
         runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
 
       containers:
         - name: client
           image: curlimages/curl:8.8.0
-          command: ["sleep", "infinity"]
+          command:
+            - sleep
+            - infinity
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
